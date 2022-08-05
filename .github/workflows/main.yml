@@ -2,12 +2,12 @@ name: "Daily Fudan"
 
 on:
   schedule:
-    - cron: "17 22,5 * * *"  # scheduled at 06:17 & 13:17 (UTC+8) everyday
+    - cron: "15 16 * * *"  # scheduled at 00:15 (UTC+8) everyday
   workflow_dispatch:
 
 env:
   # auto merge from y1ndan/genshin-impact-helper, default: false
-  ALLOW_MERGE: 'true'
+  ALLOW_MERGE: 'false'
   RUN_ENV: 'prod'
   TZ: 'Asia/Shanghai'
 
@@ -28,10 +28,10 @@ jobs:
         run: |
           git config --global user.name  github-actions
           git config --global user.email github-actions@github.com
-          git config --global pull.rebase true
-          git remote add upstream https://github.com/Limourli-liu/daily_fudan.git
+          git remote add upstream https://github.com/k652/daily_fudan
+          git config pull.rebase false  # merge (the default strategy)
           git pull upstream master --allow-unrelated-histories
-          git push origin master --force
+          git push origin master
       - name: Set up python
         uses: actions/setup-python@v2
         with:
